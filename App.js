@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import { View, Text,StyleSheet, SafeAreaView } from "react-native";
+import AddNewDate from "./Components/AddNewDate";
+import Home from "./Screens/Home";
+import styles from "./Helpers/styles";
 
 export default function App() {
+
+  const [showHome,setShowHome] =useState(true)
+  
+  const handleAddItem = () => {//go adddate
+    setShowHome(false);
+  }
+
+  const handleGoBack = () => {//volver al home
+    console.log('fecha agregada con exito!')
+    setShowHome(true);
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView
+      style={styles.app}
+    >
+     
+      {showHome?(
+        <Home onAddItem={handleAddItem}/>
+      ):(
+        <AddNewDate onGoBack={handleGoBack}/>
+      )}
+      
+      
+      
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
